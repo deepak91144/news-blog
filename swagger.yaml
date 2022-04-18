@@ -1,0 +1,932 @@
+openapi: 3.0.0
+info:
+  title: News Blog
+  description: News Blog Project
+  version: 1.0.0
+  contact:
+    email: mfsi.deepak.j@gmail.com
+
+servers:
+  - url: "http://localhost:3000/api"
+    description: for localhost
+paths:
+  /post:
+    # for add new airport
+    post:
+      tags:
+        - Post
+      summary: Add New Post
+      consumes:
+        - application/json
+      produces:
+        - application/json
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                category:
+                  type: string
+                author:
+                  type: string
+
+      responses:
+        201:
+          description: Returns success message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+        401:
+          description: unauthorize access
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+        500:
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+    get:
+      tags:
+        - Post
+      summary: returns all posts depened  offset and limit
+      parameters:
+        - name: limit
+          in: query
+          required: true
+          default: 10
+          schema:
+            type: string
+        - name: offSet
+          in: query
+          required:
+          default: 0
+          schema:
+            type: string
+
+      responses:
+        200:
+          description: array of objects containing airports details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  posts:
+                    type: array
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+        404:
+          description: return error message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+        401:
+          description: unauthorize access
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+        500:
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /post/{postId}:
+    get:
+      tags:
+        - Post
+      summary: returns  single post
+      parameters:
+        - name: postId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: object containing post details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  posts:
+                    type: array
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+        404:
+          description: return error message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+        401:
+          description: unauthorize access
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+        500:
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+    delete:
+      tags:
+        - Post
+      summary: delete a post
+      parameters:
+        - name: postId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description: delete airport
+        400:
+          description: bad request
+        401:
+          description: unauthorize access
+
+        500:
+          description: internal server error
+
+    put:
+      tags:
+        - Post
+      summary: update post by id
+
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: postId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                category:
+                  type: string
+                author:
+                  type: string
+      responses:
+        201:
+          description: returns the updated post
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  status:
+                    type: string
+                  airport:
+                    type: object
+
+        400:
+          description: return error message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  status:
+                    type: string
+        404:
+          description: not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  status:
+                    type: string
+        401:
+          description: unauthorize access
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  status:
+                    type: string
+        500:
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  status:
+                    type: string
+  # category
+
+  /category:
+    # for add new airport
+    post:
+      tags:
+        - category
+      summary: Add New Category
+      consumes:
+        - application/json
+      produces:
+        - application/json
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                author:
+                  type: string
+
+      responses:
+        201:
+          description: Returns success message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+        401:
+          description: unauthorize access
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+        500:
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    get:
+      tags:
+        - category
+      summary: returns all category depened  offset and limit
+      parameters:
+        - name: limit
+          in: query
+          required: true
+          default: 10
+          schema:
+            type: string
+        - name: offSet
+          in: query
+          required:
+          default: 0
+          schema:
+            type: string
+
+      responses:
+        200:
+          description: array of objects containing category details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  posts:
+                    type: array
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+        404:
+          description: return error message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+        401:
+          description: unauthorize access
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+        500:
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /category/{categoryId}:
+    get:
+      tags:
+        - category
+      summary: returns  single category
+      parameters:
+        - name: categoryId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: object containing category details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  posts:
+                    type: array
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+        404:
+          description: return error message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+        401:
+          description: unauthorize access
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+        500:
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+    delete:
+      tags:
+        - category
+      summary: delete a category
+      parameters:
+        - name: categoryId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description: delete a post
+        400:
+          description: bad request
+        401:
+          description: unauthorize access
+
+        500:
+          description: internal server error
+    put:
+      tags:
+        - category
+      summary: update category by id
+
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: categoryId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                author:
+                  type: string
+      responses:
+        201:
+          description: returns the updated category
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  status:
+                    type: string
+                  airport:
+                    type: object
+
+        400:
+          description: return error message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  status:
+                    type: string
+        404:
+          description: not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  status:
+                    type: string
+        401:
+          description: unauthorize access
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  status:
+                    type: string
+        500:
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  status:
+                    type: string
+  /author:
+    # for add new airport
+    post:
+      tags:
+        - Author
+      summary: Add New author
+      consumes:
+        - application/json
+      produces:
+        - application/json
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+
+      responses:
+        201:
+          description: Returns success message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+        401:
+          description: unauthorize access
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+        500:
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    get:
+      tags:
+        - Author
+      summary: returns all authers depened  offset and limit
+      parameters:
+        - name: limit
+          in: query
+          required: true
+          default: 10
+          schema:
+            type: string
+        - name: offSet
+          in: query
+          required:
+          default: 0
+          schema:
+            type: string
+
+      responses:
+        200:
+          description: array of objects containing authors details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  posts:
+                    type: array
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+        404:
+          description: return error message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+        401:
+          description: unauthorize access
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+        500:
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /author/{authorId}:
+    get:
+      tags:
+        - Author
+      summary: returns  single author
+      parameters:
+        - name: authorId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: object containing author details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  author:
+                    type: array
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+        404:
+          description: return error message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+        401:
+          description: unauthorize access
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+        500:
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+    delete:
+      tags:
+        - Author
+      summary: delete a Author
+      parameters:
+        - name: authorId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description: delete an author
+        400:
+          description: bad request
+        401:
+          description: unauthorize access
+
+        500:
+          description: internal server error
+    put:
+      tags:
+        - Author
+      summary: update author by id
+
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: categoryId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        201:
+          description: returns the updated author
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  status:
+                    type: string
+                  airport:
+                    type: object
+
+        400:
+          description: return error message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  status:
+                    type: string
+        404:
+          description: not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  status:
+                    type: string
+        401:
+          description: unauthorize access
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  status:
+                    type: string
+        500:
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  status:
+                    type: string
