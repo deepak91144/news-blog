@@ -8,6 +8,7 @@ router.post(
   [
     check("name", "name is empty").notEmpty(),
     check("email", "email is empty").notEmpty(),
+    check("phoneNumber", "phoneNumber is empty").notEmpty(),
   ],
   authController.signUp
 );
@@ -16,5 +17,5 @@ router.post(
   [check("email", "email is empty").notEmpty()],
   authController.signIn
 );
-router.get("/signout", authController.signOut);
+
 module.exports = router;

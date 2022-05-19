@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const postController = require("../controllers/PostController");
 const { check } = require("express-validator");
+const isAuthenticated = require("../middlewaire/Auth");
+
 router.post(
   "/post",
   [
@@ -10,11 +12,14 @@ router.post(
     check("category", "category is empty").notEmpty(),
     check("author", "author is empty").notEmpty(),
   ],
+
   postController.addPost
 );
 router.get("/post", postController.getPosts);
 router.get("/post/:postId", postController.getSignlePost);
+router.get("/post/search/:title", postController.searchPost);
+router.get("/post/sort/:sort", postController.sortingPost);
 router.delete("/post/:postId", postController.deletePost);
 router.put("/post/:postId", postController.updatePost);
-router.get("/join", postController.join);
+
 module.exports = router;

@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const categoryController = require("../controllers/CategoryController");
 const { check } = require("express-validator");
+const isAuthenticated = require("../middlewaire/Auth");
+
 router.post(
   "/category",
   [
@@ -11,7 +13,19 @@ router.post(
   categoryController.addCategory
 );
 router.get("/category", categoryController.getCategories);
-router.get("/category/:categoryId", categoryController.getSignleCategory);
-router.delete("/category/:categoryId", categoryController.deleteCategory);
-router.put("/category/:categoryId", categoryController.updateCategory);
+router.get(
+  "/category/:categoryId",
+
+  categoryController.getSignleCategory
+);
+router.delete(
+  "/category/:categoryId",
+
+  categoryController.deleteCategory
+);
+router.put(
+  "/category/:categoryId",
+
+  categoryController.updateCategory
+);
 module.exports = router;
